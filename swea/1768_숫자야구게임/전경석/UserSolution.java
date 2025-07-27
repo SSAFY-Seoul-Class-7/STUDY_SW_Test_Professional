@@ -11,8 +11,6 @@ class UserSolution {
                         if (i == j || i == k || i == l || j == k || j ==l || k == l) visited[i][j][k][l] = true;
                         if (visited[i][j][k][l]) continue;
 
-                        System.out.println(3);
-
                         Solution.Result result = Solution.query(new int[] {i, j, k, l});
                         if (result.strike == 4) {
                             guess[0] = i;
