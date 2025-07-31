@@ -1,4 +1,6 @@
 문제 유형: 자료구조, 시뮬레이션
+<img width="842" height="472" alt="image" src="https://github.com/user-attachments/assets/cf2fd516-9378-453e-ba81-bd52fdad4219" />
+
 
 ## 문제 접근
 가장 먼저 각 리그마다 정렬을 하며 양 끝, 중간값을 빠르게 찾아야 하므로 priority_queue(우선순위 큐)를 2개 사용하는 것을 고려했습니다. <br/>
