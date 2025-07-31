@@ -43,11 +43,12 @@ class UserSolution {
     void initMiddleQueue(People p, int index){
         if(middle_acs_queue[index].size() >= ((this.per_people + 1)/2)){
             if(middle_acs_queue[index].peek().compareTo(p) > 0){
-                middle_dsc_queue[index].offer(p);
-            }else{
+                // p가 더 크다
                 People temp = middle_acs_queue[index].poll();
                 middle_dsc_queue[index].offer(temp);
                 middle_acs_queue[index].offer(p);
+            }else{
+                middle_dsc_queue[index].offer(p);
             }
         }else{
             middle_acs_queue[index].offer(p);
@@ -56,7 +57,7 @@ class UserSolution {
     }
 
     void offerMiddleQueue(People p, int index){
-        if(middle_dsc_queue[index].peek().compareTo(p) < 0){
+        if(middle_dsc_queue[index].peek().compareTo(p) > 0){
             // p가 더 클때
             middle_acs_queue[index].offer(p);
         }else{
@@ -67,11 +68,11 @@ class UserSolution {
     }
 
     void offer_move_MiddleQueue(People p, int index){
-        if(middle_dsc_queue[index].peek().compareTo(p) < 0){
+        if(middle_dsc_queue[index].peek() == null || middle_dsc_queue[index].peek().compareTo(p) > 0){
             // p가 더 클때
             if(middle_acs_queue[index].size() >= ((this.per_people + 1) / 2)){
                 // 꽉 차있음
-                if(middle_acs_queue[index].peek().compareTo(p) < 0){
+                if(middle_acs_queue[index].peek().compareTo(p) > 0){
                     People temp = middle_acs_queue[index].poll();
                     middle_dsc_queue[index].offer(temp);
                     middle_acs_queue[index].offer(p);
@@ -194,8 +195,6 @@ class UserSolution {
 
         People[] temp_middle = new People[this.team_count];
         People[] temp_max = new People[this.team_count];
-
-        System.out.println(middle_dsc_queue[0].peek().id);
         
         // 중간애들 뽑기
         for(int i=0; i< this.team_count-1;i++){
@@ -235,10 +234,35 @@ class UserSolution {
 
         for (People p : set) {
             result += p.id;
-            System.out.print(p.id + " ");
+            // System.out.print(p.id + " ");
         }
+        // System.out.print('\n');
 
         return result;
     }
 
 }
+
+// 단순 구현
+// 전체 배열에 넣기
+// 2차원 배열로 arr[리그][순서] = 사람의 id
+// 능력값 어떻게 정렬?
+// people class 만들어주기?
+
+// 1차원 배열에 id의 능력치
+
+// P = N / L < 4000
+
+// 10 * 4 * 10^3 * 12 = 약 4 * 10^5
+// 각각 그냥 정렬 : 리그 수 * Plog(P)
+
+// (L-1) * 2번 move
+// L 만큼 trade
+
+// 약 4 * 10^5 * 10^3 = 4*10^8
+// 이렇게 하니까 딱 3004ms 아슬아슬하게 안됨
+
+// 시간복잡도 줄이기.
+// 우선순위 큐로 하면 바로 수정이 되어버림. 근데 그러면 안돼.
+
+// compareTo 주의해서 코딩해야할듯.
